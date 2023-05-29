@@ -6,7 +6,7 @@ return {
   },
   cmd = { "ToggleTerm", "TermExec" },
   opts = {
-    size = 20,
+    size = vim.o.columns * 0.4,
     hide_numbers = true,
     shade_filetypes = {},
     shade_terminals = false,
