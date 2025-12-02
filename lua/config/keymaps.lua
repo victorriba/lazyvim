@@ -2,12 +2,11 @@
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
 
-local map = LazyVim.safe_keymap_set
--- floating terminal
-local lazyterm = function()
-  LazyVim.terminal(nil, { cwd = LazyVim.root() })
-end
-map("n", "<leader>fT", lazyterm, { desc = "Terminal (Root Dir)" })
-map("n", "<leader>ft", function()
-  LazyVim.terminal()
-end, { desc = "Terminal (cwd)" })
+vim.api.nvim_create_autocmd("TermOpen", {
+  pattern = "*",
+  callback = function()
+    if vim.bo.filetype == "snacks_terminal" then
+      vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>:close<CR>", { buffer = true, desc = "Hide Terminal" })
+    end
+  end,
+})
